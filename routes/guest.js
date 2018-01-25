@@ -39,13 +39,18 @@ module.exports = function(app) {
     });
     
     // Login function
-    app.get('/guest/login/:id', function(req, res) {
+    app.post('/guest/login/:id', function(req, res) {
         Guest.findOne({"id": req.params.id}, function(err, guest) {
             if(err) {
 				res.json({ info: 'Error during find guest', error: err });
 			};
 			if(guest) {
-				res.json({ info: 'Guest found successfully', data: guest });
+				if(guest.password !== req.body.password) {
+					res.json({ info: 'Wrong username/password couple' });
+				}
+				else {
+					res.json({ info: 'Guest found successfully', data: guest });
+				}
 			} else {
 				res.json({ info: 'Guest not found' });
 			}
