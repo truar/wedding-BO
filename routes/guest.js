@@ -46,7 +46,7 @@ module.exports = function(app) {
 			};
 			if(guest) {
 				if(guest.password !== req.body.password) {
-					res.json({ info: 'Wrong username/password couple' });
+					res.status(403).json({ error: 'Wrong username/password couple' });
 				}
 				else {
 					res.json({ info: 'Guest found successfully', data: guest });
