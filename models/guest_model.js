@@ -11,7 +11,8 @@ var guestSchema = mongoose.Schema({
         email: String,
         guests: [String],
         allergies: String,
-        message: String
+        message: String,
+        hebergement: String
     }
 });
 
