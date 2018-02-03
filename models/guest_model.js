@@ -6,8 +6,9 @@ var guestSchema = mongoose.Schema({
 	displayName: String,
     category: Number,
     answer: {
+        hasAnswered: Boolean,
         date: { type: Date, default: Date.Now },
-        disponibility: Number,
+        isAvailable: Boolean,
         email: String,
         guests: [String],
         allergies: String,
