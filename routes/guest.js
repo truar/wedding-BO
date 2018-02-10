@@ -10,6 +10,7 @@ module.exports = function(app) {
 		newGuest.save(function(err, guest, row) {
 			if(err) {
 				res.json({ info: 'Error during guest creation', error: err });
+				return;
 			};
 			res.json({ info: 'Guest created successfully', data: guest, rowCreated: row});
 		});
@@ -19,6 +20,7 @@ module.exports = function(app) {
 		Guest.find(function(err, guests) {
 			if(err) {
 				res.json({ info: 'Error during find guests', error: err });
+				return;
 			};
 			res.json({ info: 'Guests found successfully', data: guests });
 		});
@@ -28,6 +30,7 @@ module.exports = function(app) {
 		Guest.findById(req.params.id, function(err, guest) {
 			if(err) {
 				res.json({ info: 'Error during find guest', error: err });
+				return;
 			};
 			if(guest) {
 				res.json({ info: 'Guest found successfully', data: guest });
@@ -39,10 +42,11 @@ module.exports = function(app) {
     });
     
     // Login function
-    app.post('/guest/login/:id', function(req, res) {
+    app.post('/guest/login/:id', function(req, res, next) {
         Guest.findOne({"id": req.params.id}, function(err, guest) {
             if(err) {
 				res.json({ info: 'Error during find guest', error: err });
+				return;
 			};
 			if(guest) {
 				if(guest.password !== req.body.password) {
@@ -63,6 +67,7 @@ module.exports = function(app) {
 		}, req.body, function(err, oldGuest) {
 			if(err) {
 				res.json({ info: 'Error during update Guest', error: err });
+				return;
 			};
 			if(oldGuest) {
 				res.json({ info: 'Guest update successfully', data: oldGuest });
@@ -78,6 +83,7 @@ module.exports = function(app) {
 		}, function(err, deletedGuest) {
 			if(err) {
 				res.json({ info: 'Error during guest deletion', error: err });
+				return;
 			};
 			if(deletedGuest) {
 				res.json({ info: 'Guest deleted successfully', data: deletedGuest });
